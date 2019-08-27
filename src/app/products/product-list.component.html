@@ -32,23 +32,15 @@
             <th>5 Star Rating</th>
           </tr>
         </thead>
-        <!-- 
-        productId: 1,
-        productName: "Leaf Rake",
-        productCode: "GDN-0011",
-        releaseDate: "March 19, 2019",
-        description: "Leaf rake with 48-inch wooden handle.",
-        price: 19.95,
-        starRating: 3.2,
-        imageUrl: "assets/images/leaf_rake.png"
-      }, -->
+
         <tbody>
           <tr *ngFor="let product of products">
             <td>
               <img
-                src="{{ product.imageUrl }} "
-                alt="{{ product.productName }} "
-                style="width: 50px"
+                [src]="product.imageUrl"
+                [alt]="product.productName"
+                [style.width.px]="imageWidth"
+                [style.margin.px]="imageMargin"
               />
             </td>
             <td>{{ product.productName }}</td>
