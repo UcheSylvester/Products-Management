@@ -8,6 +8,8 @@ export class ProductListComponent {
   pageTitle: string = "Product List";
   imageWidth: number = 50;
   imageMargin: number = 3;
+  showImage: boolean = false;
+  // buttonText: string = "Show Image";
   products: any[] = [
     {
       productId: 1,
@@ -50,4 +52,12 @@ export class ProductListComponent {
       imageUrl: "assets/images/saw.png"
     }
   ];
+
+  toggleImage(): void {
+    console.log("toggling image...");
+    this.showImage = !this.showImage;
+    // console.log(this.showImage);
+
+    // this.buttonText = this.showImage ? "Show Image" : "Hide Image";
+  }
 }
