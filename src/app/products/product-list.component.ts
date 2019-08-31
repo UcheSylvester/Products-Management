@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { IProduct } from "./products";
+import { filter } from "minimatch";
 
 @Component({
   selector: "pm-products",
@@ -11,8 +12,24 @@ export class ProductListComponent implements OnInit {
   imageWidth: number = 50;
   imageMargin: number = 3;
   showImage: boolean = false;
-  listFilter: string = "cart";
-  // buttonText: string = "Show Image";
+  // listFilter: string = "cart";
+
+  // gettng user inputs using getter and setter
+  _listFilter: string;
+
+  get listFilter(): string {
+    return this._listFilter;
+  }
+
+  set listFilter(value: string) {
+    this._listFilter = value;
+    this.filteredProducts = this.listFilter
+      ? this.performFilter(this.listFilter)
+      : this.products;
+  }
+
+  filteredProducts: IProduct[];
+
   products: IProduct[] = [
     {
       productId: 1,
@@ -62,6 +79,21 @@ export class ProductListComponent implements OnInit {
     // console.log(this.showImage);
 
     // this.buttonText = this.showImage ? "Show Image" : "Hide Image";
+  }
+
+  constructor() {
+    this.filteredProducts = this.products;
+    this.listFilter = "";
+  }
+
+  // filtering produts
+  performFilter(filterBy: string): IProduct[] {
+    // converting the input to lowercase for case insensitivity
+    filterBy = filterBy.toLowerCase();
+    return this.products.filter(
+      (product: IProduct) =>
+        product.productName.toLocaleLowerCase().indexOf(filterBy) !== -1
+    );
   }
 
   ngOnInit(): void {
