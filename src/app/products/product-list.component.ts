@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { IProduct } from "./products";
-import { filter } from "minimatch";
+// import { filter } from "minimatch";
 
 @Component({
   selector: "pm-products",
@@ -84,6 +84,11 @@ export class ProductListComponent implements OnInit {
   constructor() {
     this.filteredProducts = this.products;
     this.listFilter = "";
+  }
+
+  // displaying the star Rating with the title when stars are clicked
+  onRatingClicked(message: string) {
+    this.pageTitle = 'Product List' + message;
   }
 
   // filtering produts
