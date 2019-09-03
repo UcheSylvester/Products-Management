@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { IProduct } from "./products";
-// import { filter } from "minimatch";
+import { ProductService } from "./products.service";
 
 @Component({
   selector: "pm-products",
@@ -73,22 +73,16 @@ export class ProductListComponent implements OnInit {
     }
   ];
 
+  constructor(private productService: ProductService) {}
+
   toggleImage(): void {
     console.log("toggling image...");
     this.showImage = !this.showImage;
-    // console.log(this.showImage);
-
-    // this.buttonText = this.showImage ? "Show Image" : "Hide Image";
-  }
-
-  constructor() {
-    this.filteredProducts = this.products;
-    this.listFilter = "";
   }
 
   // displaying the star Rating with the title when stars are clicked
   onRatingClicked(message: string) {
-    this.pageTitle = 'Product List' + message;
+    this.pageTitle = "Product list:" + message;
   }
 
   // filtering produts
@@ -103,5 +97,8 @@ export class ProductListComponent implements OnInit {
 
   ngOnInit(): void {
     console.log("in onInit");
+    this.products = this.productService.getProducts();
+    this.filteredProducts = this.products;
+    this.listFilter = "";
   }
 }
