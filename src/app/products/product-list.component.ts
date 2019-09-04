@@ -12,7 +12,7 @@ export class ProductListComponent implements OnInit {
   imageWidth: number = 50;
   imageMargin: number = 3;
   showImage: boolean = false;
-  // listFilter: string = "cart";
+  errorMessage: string;
 
   // gettng user inputs using getter and setter
   _listFilter: string;
@@ -56,8 +56,13 @@ export class ProductListComponent implements OnInit {
 
   ngOnInit(): void {
     console.log("in onInit");
-    this.products = this.productService.getProducts();
-    this.filteredProducts = this.products;
+    this.productService.getProducts().subscribe({
+      next: products => {
+        this.products = products;
+        this.filteredProducts = this.products;
+      },
+      error: err => (this.errorMessage = err)
+    });
     this.listFilter = "";
   }
 }
